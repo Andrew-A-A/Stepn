@@ -6,7 +6,13 @@ class LicenseForm extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
+      appBar: AppBar(
+        title:
+        const Text("رخصلي",
+            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,fontFamily: 'Roboto')
+        ),
+      ),
     );
   }
 

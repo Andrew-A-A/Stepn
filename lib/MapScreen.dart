@@ -10,7 +10,7 @@ import 'package:stepn/forms/data/UserData.dart';
 import 'forms/data/Services.dart';
 import 'main.dart';
 
-class MapScreenState extends State<MapScreen> {
+class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
   late GoogleMapController mapController;
   late String _darkMapStyle;
   late String _lightMapStyle;
@@ -23,8 +23,31 @@ class MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _loadMapStyles();
   }
+  @override
+  void didChangePlatformBrightness() {
+    setState(() {
+      _setMapStyle();
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  Future _setMapStyle() async {
+
+    final theme = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    if (theme == Brightness.dark) {
+      mapController.setMapStyle(_darkMapStyle);
+    } else {
+      mapController.setMapStyle(_lightMapStyle);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +74,7 @@ class MapScreenState extends State<MapScreen> {
                 setState(() {
                   mapController = controller;
                   final theme = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+
                   if (theme == Brightness.dark) {
                     controller.setMapStyle(_darkMapStyle);
                   } else {

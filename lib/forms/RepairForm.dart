@@ -21,24 +21,12 @@ class _RepairFormState extends State<RepairForm> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('صيانة', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,fontFamily: 'Roboto')),
+          title: const Text('صلحلي', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,fontFamily: 'Roboto')),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Image(image :AssetImage('assets/siana.png'),width: 200,height: 200,),
-              Padding(
-                padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: FormsControllers.kilosController,
-                  decoration:  const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "عداد",
-                    prefixIcon: Icon(Icons.speed_rounded),
-                  ),
-                ),
-              ),
+              const Image(image :AssetImage('assets/salah.png'),width: 200,height: 200,),
               Padding(
                 padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
                 child: TextFormField(
@@ -48,7 +36,7 @@ class _RepairFormState extends State<RepairForm> {
                   controller: FormsControllers.descriptionController,
                   decoration:  const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: "وصف حالة العربية دلوقتي (اختياري)",
+                    labelText: "وصف حالة العربية ",
                     prefixIcon: Icon(Icons.notes),
                   ),
                 ),

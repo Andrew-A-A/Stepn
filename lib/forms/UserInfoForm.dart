@@ -10,14 +10,9 @@ import 'package:stepn/forms/data/formsContollers.dart';
 
 import 'data/Services.dart';
 
-class UserInfoForm extends StatefulWidget{
+class UserInfoForm extends StatelessWidget{
   const UserInfoForm({super.key});
 
-  @override
-  State<UserInfoForm> createState() => _UserInfoFormState();
-}
-
-class _UserInfoFormState extends State<UserInfoForm> {
   @override
   Widget build(BuildContext context) {
    return  Directionality(
@@ -75,7 +70,7 @@ class _UserInfoFormState extends State<UserInfoForm> {
                      ),
                    ),
 
-         
+
                    //Model text box
                    Padding(
                      padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
@@ -91,7 +86,7 @@ class _UserInfoFormState extends State<UserInfoForm> {
                        ),
                      ),
                    ),
-         
+
 
                    //Model text box
                    Padding(
@@ -108,9 +103,9 @@ class _UserInfoFormState extends State<UserInfoForm> {
                        ),
                      ),
                    ),
-         
 
-         
+
+
                    //Year text box
                    Padding(
                      padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
@@ -129,7 +124,7 @@ class _UserInfoFormState extends State<UserInfoForm> {
                  ],
                ),
              ),
-         
+
              //Next button
              ElevatedButton(
                  onPressed: () {
@@ -145,21 +140,21 @@ class _UserInfoFormState extends State<UserInfoForm> {
                            context,
                            MaterialPageRoute(builder: (context) =>  const DiagnosisForm())
                        );
-         
+
                      } break;
                      case Services.REPAIR: {
                        Navigator.push(
                            context,
                            MaterialPageRoute(builder: (context) =>  const RepairForm())
                        );
-         
+
                      } break;
                      case Services.HELP: {
                        Navigator.push(
                            context,
                            MaterialPageRoute(builder: (context) =>  const HelpForm())
                        );
-         
+
                      } break;
                      case Services.TUNNING: {
                        Navigator.push(
@@ -172,11 +167,11 @@ class _UserInfoFormState extends State<UserInfoForm> {
                            context,
                            MaterialPageRoute(builder: (context) =>  const LicenseForm())
                        );
-         
+
                      } break;
                    }
-         
-         
+
+
                  },
                  style: TextButton.styleFrom(
                      foregroundColor: Colors.white,
