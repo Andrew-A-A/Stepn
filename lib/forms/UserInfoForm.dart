@@ -9,10 +9,10 @@ import 'package:stepn/forms/data/UserData.dart';
 import 'package:stepn/forms/data/formsContollers.dart';
 
 import 'data/Services.dart';
-
+var signupFormKey = GlobalKey<FormState>();
 class UserInfoForm extends StatelessWidget{
-  const UserInfoForm({super.key});
-
+  static const userIcon=AssetImage('assets/user.webp');
+   const UserInfoForm({super.key});
   @override
   Widget build(BuildContext context) {
    return  Directionality(
@@ -29,9 +29,10 @@ class UserInfoForm extends StatelessWidget{
          child: Column(
            children: [
              Form(
+               key: signupFormKey,
                child: Column(
                  children:[
-                  const Image(image :AssetImage('assets/user.png'),width: 150,height: 150,),
+                  const Image(image :userIcon,width: 150,height: 150,),
                    //Name text box
                    Padding(
                      padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
@@ -62,6 +63,12 @@ class UserInfoForm extends StatelessWidget{
                        controller: FormsControllers.phoneController,
                        textInputAction: TextInputAction.next,
                        enableSuggestions: true,
+                       validator: (value) {
+                         if (value!.isEmpty) {
+                           return "من فضلك اكتب رقم تليفونك";
+                         }
+                         return null;
+                       },
                        decoration:  const InputDecoration(
                            border: OutlineInputBorder(),
                            labelText: "رقم التليفون",
@@ -79,6 +86,13 @@ class UserInfoForm extends StatelessWidget{
                        controller: FormsControllers.manufactureController,
                        textInputAction: TextInputAction.next,
                        enableSuggestions: true,
+                       validator: (value) {
+                         if (value!.isEmpty) {
+                           return "من فضلك اكتب نوع عربيتك";
+                         }
+                         return null;
+                         //  return null;
+                       },
                        decoration:  const InputDecoration(
                            border: OutlineInputBorder(),
                            labelText: "نوع العربية",
@@ -96,6 +110,13 @@ class UserInfoForm extends StatelessWidget{
                        controller: FormsControllers.modelController,
                        textInputAction: TextInputAction.next,
                        enableSuggestions: true,
+                       validator: (value) {
+                         if (value!.isEmpty) {
+                           return "من فضلك اكتب موديل عربيتك";
+                         }
+                         return null;
+                         //  return null;
+                       },
                        decoration:  const InputDecoration(
                            border: OutlineInputBorder(),
                            labelText: "الموديل",
@@ -128,7 +149,8 @@ class UserInfoForm extends StatelessWidget{
              //Next button
              ElevatedButton(
                  onPressed: () {
-                   switch (UserData.serviceType){
+                   if(signupFormKey.currentState!.validate()) {
+                     switch (UserData.serviceType){
                      case Services.CARE: {
                        Navigator.push(
                            context,
@@ -169,6 +191,7 @@ class UserInfoForm extends StatelessWidget{
                        );
 
                      } break;
+                   }
                    }
 
 

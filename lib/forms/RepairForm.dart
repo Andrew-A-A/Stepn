@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stepn/forms/data/CarData.dart';
 import 'package:stepn/forms/data/formsContollers.dart';
 
-
+var repairFormKey = GlobalKey<FormState>();
 class RepairForm extends StatefulWidget {
   const RepairForm({super.key});
 
@@ -24,78 +24,89 @@ class _RepairFormState extends State<RepairForm> {
           title: const Text('صلحلي', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,fontFamily: 'Roboto')),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Image(image :AssetImage('assets/salah.png'),width: 200,height: 200,),
-              Padding(
-                padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                child: TextFormField(
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 20,
-                  controller: FormsControllers.descriptionController,
-                  decoration:  const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "وصف حالة العربية ",
-                    prefixIcon: Icon(Icons.notes),
+          child: Form(
+            key: repairFormKey,
+            child: Column(
+              children: [
+                const Image(image :AssetImage('assets/salah.png'),width: 200,height: 200,),
+                Padding(
+                  padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+                  child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 20,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "من فضلك اكتب المشكلة اللي في العربية";
+                      }
+                      return null;
+                    },
+                    controller: FormsControllers.descriptionController,
+                    decoration:  const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "وصف حالة العربية ",
+                      prefixIcon: Icon(Icons.notes),
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      myAlert();
-                    },
-                    child: const Text('صورة العربية'),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  //if image not null show the image
-                  //if image null show text
-                  if(CarData.carPhoto!=null)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 100),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.file(
-                          //to show image, you type like this.
-                          File(CarData.carPhoto!.path),
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width-300,
-                          height: MediaQuery.of(context).size.width-300,
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        myAlert();
+                      },
+                      child: const Text('صورة العربية'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    //if image not null show the image
+                    //if image null show text
+                    if(CarData.carPhoto!=null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 100),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            //to show image, you type like this.
+                            File(CarData.carPhoto!.path),
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width-300,
+                            height: MediaQuery.of(context).size.width-300,
+                          ),
                         ),
-                      ),
-                    )
-                ],
-              ),
-              const SizedBox(height: 20,),
-              const ListTile(title: Text("طريقة الدفع :"),
-                  subtitle: Text("الدفع هيكون مع المندوب اللي هيجيلك من فريقنا")
-              ),
-              RadioListTile(toggleable: true,title: const Text("فيزا"),value: false, groupValue: CarData.isCashPayment, onChanged: (value){
-                setState(() {
-                  CarData.isCashPayment=value!;
-                });
-              }),
-              RadioListTile(toggleable: true,title: const Text("كاش"),value: true, groupValue: CarData.isCashPayment, onChanged: (value){
-                setState(() {
-                  CarData.isCashPayment=value!;
-                });
-              }),
-              const SizedBox(height: 25),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.amber,
-                    padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
-                    disabledBackgroundColor: Colors.grey,
-                  ),
-                  child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
-              ),
-            ],
+                      )
+                  ],
+                ),
+                const SizedBox(height: 20,),
+                const ListTile(title: Text("طريقة الدفع :"),
+                    subtitle: Text("الدفع هيكون مع المندوب اللي هيجيلك من فريقنا")
+                ),
+                RadioListTile(toggleable: true,title: const Text("فيزا"),value: false, groupValue: CarData.isCashPayment, onChanged: (value){
+                  setState(() {
+                    CarData.isCashPayment=value!;
+                  });
+                }),
+                RadioListTile(toggleable: true,title: const Text("كاش"),value: true, groupValue: CarData.isCashPayment, onChanged: (value){
+                  setState(() {
+                    CarData.isCashPayment=value!;
+                  });
+                }),
+                const SizedBox(height: 25),
+                ElevatedButton(
+                    onPressed: () {
+                      repairFormKey.currentState!.validate();
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.amber,
+                      padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
+                      disabledBackgroundColor: Colors.grey,
+                    ),
+                    child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
+                ),
+              ],
+            ),
           ),
         ),
       ),

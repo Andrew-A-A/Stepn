@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LicenseForm extends StatelessWidget{
@@ -12,6 +11,9 @@ class LicenseForm extends StatelessWidget{
         const Text("رخصلي",
             style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,fontFamily: 'Roboto')
         ),
+      ),
+      body: const Center(
+        child: Icon(Icons.question_mark_outlined,size: 100,),
       ),
     );
   }
