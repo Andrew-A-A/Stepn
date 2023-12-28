@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'data/formsContollers.dart';
-
+var helpFormKey = GlobalKey<FormState>();
 class HelpForm extends StatelessWidget {
   const HelpForm({super.key});
 
@@ -21,6 +21,7 @@ class HelpForm extends StatelessWidget {
           child: Column(
             children: [
               Form(
+                key: helpFormKey,
                 child: Column(
                   children:[
                     const Image(image :AssetImage('assets/help.png'),width: 150,height: 150,),
@@ -50,6 +51,13 @@ class HelpForm extends StatelessWidget {
                     Padding(
                       padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "من فضلك اكتب رقم التليفون";
+                          }
+                          return null;
+                          //  return null;
+                        },
                         keyboardType: TextInputType.phone,
                         controller: FormsControllers.phoneController,
                         textInputAction: TextInputAction.next,
@@ -84,14 +92,19 @@ class HelpForm extends StatelessWidget {
 
               //Next button
               ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    if(helpFormKey.currentState!.validate()){
+
+                    }
+
+                  },
                   style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.amber,
                       padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
                       disabledBackgroundColor: Colors.grey
                   ),
-                  child: const Text("التالي",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
+                  child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
               ),
               const SizedBox(height: 20),
             ],

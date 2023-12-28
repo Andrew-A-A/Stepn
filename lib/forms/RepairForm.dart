@@ -49,34 +49,50 @@ class _RepairFormState extends State<RepairForm> {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    if(CarData.carPhoto.length==6){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Directionality(
+                                textDirection: TextDirection.rtl,
+                                child:AlertDialog(icon: Icon(Icons.error_outline),title: Text("الحد الأقصي للصور ٦"),
+                                  content: Text("تقدر تدوس علي اي صورة من اللي موجودين علشان تمسحها"),)
+                            );});
+                    }
+                    else {
+                      myAlert();
+                    }
+                  },
+                  child: Text('صورة العربية'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        myAlert();
-                      },
-                      child: const Text('صورة العربية'),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    //if image not null show the image
-                    //if image null show text
-                    if(CarData.carPhoto!=null)
+                    children: [const SizedBox(width: 10,),for(int i=0; i<CarData.carPhoto.length;i++)
                       Padding(
-                        padding: const EdgeInsets.only(right: 100),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.file(
-                            //to show image, you type like this.
-                            File(CarData.carPhoto!.path),
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width-300,
-                            height: MediaQuery.of(context).size.width-300,
+                        padding:  const EdgeInsets.only(right: 9.0),
+                        child: GestureDetector(
+                          onTap:() {
+                            setState(() {
+                              CarData.carPhoto.remove(CarData.carPhoto[i]);
+                            });
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.file(
+                              //to show image, you type like this.
+                              File(CarData.carPhoto[i].path),
+                              fit: BoxFit.cover,
+                              width: 55,
+                              height: 55,
+                            ),
                           ),
                         ),
-                      )
-                  ],
+                      ),
+                    ]
                 ),
                 const SizedBox(height: 20,),
                 const ListTile(title: Text("طريقة الدفع :"),
@@ -117,7 +133,9 @@ class _RepairFormState extends State<RepairForm> {
     var img = await picker.pickImage(source: media);
 
     setState(() {
-      CarData.carPhoto = img;
+      if (img!=null) {
+        CarData.carPhoto.add(img);
+      }
     });
   }
 
@@ -131,8 +149,8 @@ class _RepairFormState extends State<RepairForm> {
             child: AlertDialog(
               shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              title: const Text('تحب تفتح الكاميرا ولا تجيب الصورة من معرض الصور ؟'),
-              content: SizedBox(
+              title: Text('تحب تفتح الكاميرا ولا تجيب الصورة من معرض الصور ؟'),
+              content: Container(
                 height: MediaQuery.of(context).size.height / 6,
                 child: Column(
                   children: [
@@ -142,7 +160,7 @@ class _RepairFormState extends State<RepairForm> {
                         Navigator.pop(context);
                         getImage(ImageSource.gallery);
                       },
-                      child: const Row(
+                      child: Row(
                         children: [
                           Icon(Icons.image),
                           Text('من معرض الصور'),
@@ -155,7 +173,7 @@ class _RepairFormState extends State<RepairForm> {
                         Navigator.pop(context);
                         getImage(ImageSource.camera);
                       },
-                      child: const Row(
+                      child: Row(
                         children: [
                           Icon(Icons.camera),
                           Text('افتح الكاميرا'),

@@ -23,7 +23,9 @@ class _CareFormState extends State<CareForm> {
     var img = await picker.pickImage(source: media);
 
     setState(() {
-      CarData.carPhoto = img;
+      if (img!=null) {
+        CarData.carPhoto.add(img);
+      }
     });
   }
 
@@ -114,35 +116,51 @@ class _CareFormState extends State<CareForm> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      myAlert();
-                    },
-                    child: Text('صورة العربية'),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  //if image not null show the image
-                  //if image null show text
-                    if(CarData.carPhoto!=null)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 100),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.file(
-                            //to show image, you type like this.
-                            File(CarData.carPhoto!.path),
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width-300,
-                            height: MediaQuery.of(context).size.width-300,
-                          ),
-                        ),
-                      )
-                ],
+              ElevatedButton(
+                onPressed: () {
+                  if(CarData.carPhoto.length==6){
+                    showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                    return Directionality(
+                    textDirection: TextDirection.rtl,
+                    child:AlertDialog(icon: Icon(Icons.error_outline),title: Text("الحد الأقصي للصور ٦"),
+                      content: Text("تقدر تدوس علي اي صورة من اللي موجودين علشان تمسحها"),)
+                  );});
+                  }
+                  else {
+                    myAlert();
+                  }
+                },
+                child: Text('صورة العربية'),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                  children: [SizedBox(width: 10,),for(int i=0; i<CarData.carPhoto.length;i++)
+                  Padding(
+                    padding:  EdgeInsets.only(right: 9.0),
+                    child: GestureDetector(
+                      onTap:() {
+                        setState(() {
+                        CarData.carPhoto.remove(CarData.carPhoto[i]);
+                        });
+                        },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          //to show image, you type like this.
+                          File(CarData.carPhoto[i].path),
+                          fit: BoxFit.cover,
+                          width: 55,
+                          height: 55,
+                        ),
+                      ),
+                    ),
+                  ),
+              ]
+            ),
               SizedBox(height: 20,),
               ListTile(title: Text("طريقة الدفع :"),
                 subtitle: Text("الدفع هيكون مع المندوب اللي هيجيلك من فريقنا")

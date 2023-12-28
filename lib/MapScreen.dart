@@ -53,11 +53,10 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 120.0),
-        child: FloatingActionButton.extended(
+        padding: const EdgeInsets.only(bottom: 200.0),
+        child: FloatingActionButton(
           onPressed: _currentLocation,
-          label: const Text('مكاني'),
-          icon: const Icon(Icons.location_on),
+          child: const Icon(Icons.my_location_rounded),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -103,6 +102,7 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                     ),
 
                   ),
+                  const SizedBox(height: 20,),
                   SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
@@ -111,6 +111,14 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                       children: [
 
                         ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12,horizontal: 27)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              )
+                            )
+                          ),
                           onPressed: () {
                             // Handle button click
                             UserData.serviceType=Services.HELP;
@@ -122,12 +130,25 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                           child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              //   Icon(:),
-                              Text('الحقني')
+                              Column(
+                                children: [
+                                  Image(image: AssetImage("assets/helpIcon.png"),width: 60,height: 60,),
+                                  Text('الحقني',style:TextStyle(fontSize: 15,fontFamily: 'Roboto')),
+                                ],
+                              )
                             ],
                           ),
                         ),
+                        const SizedBox(width: 20,),
                         ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12,horizontal: 27)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  )
+                              )
+                          ),
                           onPressed: () {
                             // Handle button click
                             UserData.serviceType=Services.CARE;
@@ -136,8 +157,23 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                                 MaterialPageRoute(builder: (context) =>  const UserInfoForm())
                             );
                           },
-                          child: const Text('صيانة'),
-                        ),  ElevatedButton(
+                          child:  const Column(
+                            children: [
+                              Image(image: AssetImage("assets/siana_icon.png"),width:60 ,height: 60 ,),
+                              Text('صيانة'),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20,),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12,horizontal: 27)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  )
+                              )
+                          ),
                           onPressed: () {
                             // Handle button click
                             UserData.serviceType=Services.TUNNING;
@@ -146,8 +182,23 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                               MaterialPageRoute(builder: (context) =>  const UserInfoForm())
                             );
                           },
-                          child: const Text('تعديل'),
-                        ),  ElevatedButton(
+                          child: const Column(
+                            children: [
+                              Image(image: AssetImage("assets/tunnig_icon.png"),height: 60,width: 60,),
+                              Text('تعديل'),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20,),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12,horizontal: 27)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  )
+                              )
+                          ),
                           onPressed: () {
                             UserData.serviceType=Services.REPAIR;
                             Navigator.push(
@@ -155,9 +206,23 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                                 MaterialPageRoute(builder: (context) =>  const UserInfoForm())
                             );
                           },
-                          child: const Text('تصليح'),
+                          child: const Column(
+                            children: [
+                              Image(image: AssetImage("assets/repair_icon.png"),height: 60,width: 60,),
+                              Text('تصليح'),
+                            ],
+                          ),
                         ),
+                        const SizedBox(width: 20,),
                         ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12,horizontal: 27)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  )
+                              )
+                          ),
                           onPressed: () {
                             // Handle button click
                             UserData.serviceType=Services.DIAGNOSIS;
@@ -166,9 +231,23 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                                 MaterialPageRoute(builder: (context) =>  const DiagnosisForm())
                             );
                           },
-                          child: const Text('كشف'),
+                          child: const Column(
+                            children: [
+                              Image(image: AssetImage('assets/diagnosis_icon.png'),width: 60,height: 60,),
+                              Text('كشف'),
+                            ],
+                          ),
                         ),
+                        const SizedBox(width: 20,),
                         ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 12,horizontal: 27)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  )
+                              )
+                          ),
                           onPressed: () {
                             // Handle button click
                             UserData.serviceType=Services.LICENSE;
@@ -177,7 +256,12 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                                 MaterialPageRoute(builder: (context) =>  const LicenseForm())
                             );
                           },
-                          child: const Text('ترخيص'),
+                          child: const Column(
+                            children: [
+                              Image(image: AssetImage("assets/license_icon.png"),width: 60,height: 60,),
+                              Text('ترخيص'),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -190,7 +274,6 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
     );
   }
   void _currentLocation() async {
-
     var location = Location();
     try {
       UserData.currentLocation = await location.getLocation();
@@ -198,6 +281,7 @@ class MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
       UserData.currentLocation = null;
     }
     if(UserData.currentLocation!=null) {
+
       mapController.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
         bearing: 0,

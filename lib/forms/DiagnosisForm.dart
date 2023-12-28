@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'data/formsContollers.dart';
-
+var diagnosisFormKey = GlobalKey<FormState>();
 class DiagnosisForm extends StatelessWidget {
   const DiagnosisForm({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,6 +20,7 @@ class DiagnosisForm extends StatelessWidget {
           child: Column(
             children: [
               Form(
+                key: diagnosisFormKey,
                 child: Column(
                   children:[
                     const Image(image :AssetImage('assets/kashf.png'),width: 150,height: 150,),
@@ -52,6 +52,13 @@ class DiagnosisForm extends StatelessWidget {
                       child: TextFormField(
                         keyboardType: TextInputType.phone,
                         controller: FormsControllers.phoneController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "من فضلك اكتب رقم التليفون";
+                          }
+                          return null;
+                          //  return null;
+                        },
                         textInputAction: TextInputAction.next,
                         enableSuggestions: true,
                         decoration:  const InputDecoration(
@@ -70,6 +77,13 @@ class DiagnosisForm extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         controller: FormsControllers.manufactureController,
                         textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "من فضلك اكتب نوع العربية";
+                          }
+                          return null;
+                          //  return null;
+                        },
                         enableSuggestions: true,
                         decoration:  const InputDecoration(
                           border: OutlineInputBorder(),
@@ -100,14 +114,18 @@ class DiagnosisForm extends StatelessWidget {
 
               //Next button
               ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    if(diagnosisFormKey.currentState!.validate()){
+
+                    }
+                  },
                   style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.amber,
                       padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
                       disabledBackgroundColor: Colors.grey
                   ),
-                  child: const Text("التالي",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
+                  child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
               ),
               const SizedBox(height: 20),
             ],
