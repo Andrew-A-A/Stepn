@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../Done_screen.dart';
 import 'data/formsContollers.dart';
 var diagnosisFormKey = GlobalKey<FormState>();
 class DiagnosisForm extends StatelessWidget {
@@ -7,16 +8,21 @@ class DiagnosisForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
+      // Set text direction
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        // To resized with the keyboard
         resizeToAvoidBottomInset: true,
+        // App bar
         appBar: AppBar(
           title:
           const Text("أكشفلي",
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,fontFamily: 'Roboto')
           ),
         ),
+
         body: SingleChildScrollView(
+          // Main form column
           child: Column(
             children: [
               Form(
@@ -92,8 +98,7 @@ class DiagnosisForm extends StatelessWidget {
                         ),
                       ),
                     ),
-
-
+                    // Car state description text box
                     Padding(
                       padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
                       child: TextFormField(
@@ -115,15 +120,16 @@ class DiagnosisForm extends StatelessWidget {
               //Next button
               ElevatedButton(
                   onPressed: (){
+                    // Validate input data
                     if(diagnosisFormKey.currentState!.validate()){
-
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  const DoneScreen())
+                      );
                     }
                   },
                   style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.amber,
                       padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
-                      disabledBackgroundColor: Colors.grey
                   ),
                   child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
               ),

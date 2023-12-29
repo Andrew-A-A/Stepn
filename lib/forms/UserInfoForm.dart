@@ -78,7 +78,7 @@ class UserInfoForm extends StatelessWidget{
                    ),
 
 
-                   //Model text box
+                   //Manufacturer text box
                    Padding(
                      padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
                      child: TextFormField(
@@ -115,7 +115,6 @@ class UserInfoForm extends StatelessWidget{
                            return "من فضلك اكتب موديل عربيتك";
                          }
                          return null;
-                         //  return null;
                        },
                        decoration:  const InputDecoration(
                            border: OutlineInputBorder(),
@@ -197,8 +196,6 @@ class UserInfoForm extends StatelessWidget{
 
                  },
                  style: TextButton.styleFrom(
-                     foregroundColor: Colors.white,
-                     backgroundColor: Colors.amber,
                      padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
                      disabledBackgroundColor: Colors.grey
                  ),

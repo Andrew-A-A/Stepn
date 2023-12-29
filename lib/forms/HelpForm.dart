@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stepn/Done_screen.dart';
 
 import 'data/formsContollers.dart';
 var helpFormKey = GlobalKey<FormState>();
@@ -69,7 +70,7 @@ class HelpForm extends StatelessWidget {
                         ),
                       ),
                     ),
-
+                    //Car state description
                     Padding(
                       padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
                       child: TextFormField(
@@ -84,25 +85,21 @@ class HelpForm extends StatelessWidget {
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
               ),
-
               //Next button
               ElevatedButton(
                   onPressed: (){
                     if(helpFormKey.currentState!.validate()){
-
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  const DoneScreen())
+                      );
                     }
-
                   },
                   style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.amber,
                       padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
-                      disabledBackgroundColor: Colors.grey
                   ),
                   child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
               ),

@@ -12,5 +12,14 @@ class FormsControllers{
  static TextEditingController kilosController=TextEditingController();
  static TextEditingController descriptionController=TextEditingController();
 
-
+ // Clear forms data
+static void clearForm(){
+  nameController.clear();
+  phoneController.clear();
+  modelController.clear();
+  yearController.clear();
+  manufactureController.clear();
+  kilosController.clear();
+  descriptionController.clear();
+ }
 }

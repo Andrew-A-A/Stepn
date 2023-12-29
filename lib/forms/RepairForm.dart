@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stepn/forms/data/CarData.dart';
 import 'package:stepn/forms/data/formsContollers.dart';
 
+import '../Done_screen.dart';
+
 var repairFormKey = GlobalKey<FormState>();
 class RepairForm extends StatefulWidget {
   const RepairForm({super.key});
@@ -29,6 +31,7 @@ class _RepairFormState extends State<RepairForm> {
             child: Column(
               children: [
                 const Image(image :AssetImage('assets/salah.png'),width: 200,height: 200,),
+                // Car state description
                 Padding(
                   padding:  const EdgeInsets.only(left: 20,right: 20,bottom: 20),
                   child: TextFormField(
@@ -49,27 +52,30 @@ class _RepairFormState extends State<RepairForm> {
                     ),
                   ),
                 ),
+                // Add image button
                 ElevatedButton(
                   onPressed: () {
                     if(CarData.carPhoto.length==6){
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Directionality(
+                            return const Directionality(
                                 textDirection: TextDirection.rtl,
                                 child:AlertDialog(icon: Icon(Icons.error_outline),title: Text("الحد الأقصي للصور ٦"),
                                   content: Text("تقدر تدوس علي اي صورة من اللي موجودين علشان تمسحها"),)
                             );});
                     }
                     else {
-                      myAlert();
+                      selectImageSourceDialog();
                     }
                   },
-                  child: Text('صورة العربية'),
+                  child: const Text('صورة العربية'),
                 ),
+                // Space
                 const SizedBox(
                   height: 10,
                 ),
+                // Loaded images preview
                 Row(
                     children: [const SizedBox(width: 10,),for(int i=0; i<CarData.carPhoto.length;i++)
                       Padding(
@@ -94,30 +100,38 @@ class _RepairFormState extends State<RepairForm> {
                       ),
                     ]
                 ),
+                // Space
                 const SizedBox(height: 20,),
+                // Payment method title
                 const ListTile(title: Text("طريقة الدفع :"),
                     subtitle: Text("الدفع هيكون مع المندوب اللي هيجيلك من فريقنا")
                 ),
+                // Visa method radio button
                 RadioListTile(toggleable: true,title: const Text("فيزا"),value: false, groupValue: CarData.isCashPayment, onChanged: (value){
                   setState(() {
                     CarData.isCashPayment=value!;
                   });
                 }),
+                // Cash method radio button
                 RadioListTile(toggleable: true,title: const Text("كاش"),value: true, groupValue: CarData.isCashPayment, onChanged: (value){
                   setState(() {
                     CarData.isCashPayment=value!;
                   });
                 }),
+                // Space
                 const SizedBox(height: 25),
+                // Next button
                 ElevatedButton(
                     onPressed: () {
-                      repairFormKey.currentState!.validate();
+                      if(repairFormKey.currentState!.validate()){
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  const DoneScreen())
+                        );
+                      }
                     },
                     style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.amber,
                       padding: const EdgeInsets.symmetric(horizontal:170,vertical: 15),
-                      disabledBackgroundColor: Colors.grey,
                     ),
                     child: const Text("تمام",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
                 ),
@@ -139,8 +153,8 @@ class _RepairFormState extends State<RepairForm> {
     });
   }
 
-  //show popup dialog
-  void myAlert() {
+  //show popup dialog to select image source
+  void selectImageSourceDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -149,8 +163,8 @@ class _RepairFormState extends State<RepairForm> {
             child: AlertDialog(
               shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              title: Text('تحب تفتح الكاميرا ولا تجيب الصورة من معرض الصور ؟'),
-              content: Container(
+              title: const Text('تحب تفتح الكاميرا ولا تجيب الصورة من معرض الصور ؟'),
+              content: SizedBox(
                 height: MediaQuery.of(context).size.height / 6,
                 child: Column(
                   children: [
@@ -160,7 +174,7 @@ class _RepairFormState extends State<RepairForm> {
                         Navigator.pop(context);
                         getImage(ImageSource.gallery);
                       },
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.image),
                           Text('من معرض الصور'),
@@ -173,7 +187,7 @@ class _RepairFormState extends State<RepairForm> {
                         Navigator.pop(context);
                         getImage(ImageSource.camera);
                       },
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.camera),
                           Text('افتح الكاميرا'),
